@@ -1,0 +1,19 @@
+<h1>Recent Polls</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form method="post">
+
+{% csrf_token %}
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <input type="radio" name="question" id="question{{ forloop.counter }}" value="{{ question.id }}" />
+	<label for="question{{ forloop.counter }}">{{ question.question_text }}</label><br />
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+<input type="submit" value="Reset votes" />
+</form>
